@@ -1,47 +1,58 @@
 export class TrieNode {
-  _children: Array<null | TrieNode> = new Array(26).fill(null)
-  _endOfWord: boolean = false
-  _value: (string|null) = null
+  _children: { [key: string]: TrieNode } = {};
+  _endOfWord: boolean = false;
+  _value: string | null = null;
 
-  constructor(value: (string|null|undefined)){
-    if(value === undefined){
-      this._value = null
+  constructor(value: string | null | undefined) {
+    if (value === undefined) {
+      this._value = null;
     } else {
-      this._value = value
+      this._value = value;
     }
   }
 
   get children() {
-    return this._children
+    return this._children;
   }
-  set children(newChildren){
-    this._children = newChildren
-  }
-
-  get endOfWord(){
-    return this._endOfWord
-  }
-  set endOfWord(eowVal){
-    this._endOfWord = eowVal
+  set children(newChildren) {
+    this._children = newChildren;
   }
 
-  get value(){
-    return this._value
+  get endOfWord() {
+    return this._endOfWord;
   }
-  set value(newVal){
-    this._value = newVal
+  set endOfWord(eowVal) {
+    this._endOfWord = eowVal;
   }
 
-  get intValue(){
-    if(this._value !== null){
-      return TrieNode.charIntVal(this._value)
+  get value() {
+    return this._value;
+  }
+  set value(newVal) {
+    this._value = newVal;
+  }
+
+  get intValue() {
+    if (this._value !== null) {
+      return TrieNode.charIntVal(this._value);
     } else {
-      return null
+      return null;
     }
   }
 
-  static charIntVal(char: string){
-    return char.charCodeAt(0) - "a".charCodeAt(0)
+  static charIntVal(char: string) {
+    return char.charCodeAt(0) - "a".charCodeAt(0);
+  }
+
+  toString(): string {
+    return JSON.stringify(
+      {
+        children: this._children,
+        endOfWord: this._endOfWord,
+        value: this._value,
+      },
+      null,
+      2
+    );
   }
 }
-
